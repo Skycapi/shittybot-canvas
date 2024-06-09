@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file. See [standa
 
 ### [1.0.1](https://github.com/LewdHuTao/shittybot-canvas/compare/v1.0.2...v1.0.1) (2024-06-09)
 
+### [1.0.1](https://github.com/LewdHuTao/shittybot-canvas/compare/v1.0.2...v1.0.1) (2024-06-09)
+
 ### [1.0.2](https://github.com/LewdHuTao/shittybot-canvas/compare/v1.0.1...v1.0.2) (2024-06-09)
 
 ### 1.0.1 (2024-06-09)
