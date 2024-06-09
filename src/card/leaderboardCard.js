@@ -1,5 +1,5 @@
 const { createCanvas, loadImage, GlobalFonts } = require("@napi-rs/canvas");
-const fs = require('fs');
+const path = require("path");
 
 async function leaderboadCard({ songs }) {
     const maxSongs = 5;
@@ -32,6 +32,9 @@ async function leaderboadCard({ songs }) {
         const canvas = createCanvas(cardWidth, cardHeight);
         const ctx = canvas.getContext('2d');
 
+        const fontPath = path.join(__dirname, "..", "fonts", "ArialUnicodeMS.ttf");
+  GlobalFonts.registerFromPath(fontPath, "ArialUnicodeMS");
+
         ctx.fillStyle = backgroundColor;
         ctx.fillRect(0, 0, cardWidth, cardHeight);
 
@@ -58,7 +61,7 @@ async function leaderboadCard({ songs }) {
 
             // Draw the song number
             ctx.fillStyle = 'white';
-            ctx.font = 'bold 40px Arial';
+            ctx.font = "bold 40px 'ArialUnicodeMS'";
             ctx.textAlign = 'center';
             ctx.textBaseline = 'middle';
             ctx.fillText((batchIndex * maxSongs + i + 1).toString(), padding + 30, yPosition + 50);
@@ -84,7 +87,7 @@ async function leaderboadCard({ songs }) {
 
             // Set text styles and draw the song title
             ctx.fillStyle = 'white';
-            ctx.font = 'bold 25px Arial';
+            ctx.font = "bold 25px 'ArialUnicodeMS'";
             ctx.textAlign = 'left';
             ctx.textBaseline = 'top';
             const truncatedTitle = truncateText(ctx, song.songTitle, 350); // Truncate song title
@@ -92,7 +95,7 @@ async function leaderboadCard({ songs }) {
 
             // Draw the song artist
             ctx.fillStyle = '#A79D9D';
-            ctx.font = '20px Arial';
+            ctx.font = "20px 'ArialUnicodeMS'";
             const truncatedArtist = truncateText(ctx, song.songArtist, 350); // Truncate artist name
             ctx.fillText(truncatedArtist, padding + 180, yPosition + 50);
 
@@ -102,7 +105,7 @@ async function leaderboadCard({ songs }) {
         }
 
         ctx.fillStyle = 'white';
-        ctx.font = '20px Arial';
+        ctx.font = "20px 'ArialUnicodeMS'";
         ctx.fillText('shittybot.xyz', padding, cardHeight - 30);
 
         return canvas.toBuffer('image/png');
