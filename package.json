@@ -1,6 +1,6 @@
 {
-  "name": "@shittybot/canvas",
-  "version": "1.0.1",
+  "name": "@shittybot/canvas-rs",
+  "version": "1.0.2",
   "description": "",
   "main": "src/index.js",
   "scripts": {
