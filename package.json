@@ -1,0 +1,21 @@
+{
+  "name": "@shittybot/canvas",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.js",
+  "scripts": {
+    "release": "standard-version && git push --follow-tags && npm publish"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@napi-rs/canvas": "^0.1.52",
+    "fs": "^0.0.1-security"
+  },
+  "devDependencies": {
+    "standard-version": "^9.5.0"
+  }
+}
