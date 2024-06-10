@@ -1,14 +1,14 @@
 const { createCanvas, loadImage, GlobalFonts } = require("@napi-rs/canvas");
 const path = require("path");
 
-async function leaderboadCard({ songs }) {
+async function playlistCard({ songs }) {
     const maxSongs = 5;
     const songHeight = 100;
     const padding = 20;
     const cardWidth = 800;
     const backgroundColor = '#2B2D31';
     const borderRadius = 5; 
-    const loveIconURL = 'https://cdn.discordapp.com/attachments/959777491818528788/1249278463001493606/icons8-love-30.png?ex=6666b8bc&is=6665673c&hm=696448b3df555cd1e69268231e2f75790102e5cdac1fd862b7df9679dcbcabde&'; // Placeholder URL for the love icon
+    const loveIconURL = path.join(__dirname, "..", "assets", "gheart_icon.png")
 
     const truncateText = (ctx, text, maxWidth) => {
         let width = ctx.measureText(text).width;
@@ -28,7 +28,7 @@ async function leaderboadCard({ songs }) {
     };
 
     const generateSingleCard = async (songsBatch, batchIndex) => {
-        const cardHeight = padding + songsBatch.length * (songHeight + padding) + padding + 50; // Additional space for text
+        const cardHeight = padding + songsBatch.length * (songHeight + padding) + padding + 50; 
         const canvas = createCanvas(cardWidth, cardHeight);
         const ctx = canvas.getContext('2d');
 
@@ -38,13 +38,12 @@ async function leaderboadCard({ songs }) {
         ctx.fillStyle = backgroundColor;
         ctx.fillRect(0, 0, cardWidth, cardHeight);
 
-        const loveIcon = await loadImage(loveIconURL); // Load the love icon image
+        const loveIcon = await loadImage(loveIconURL);
 
         for (let i = 0; i < songsBatch.length; i++) {
             const song = songsBatch[i];
             const yPosition = i * (songHeight + padding) + padding;
 
-            // Draw the background box with rounded corners for each song
             ctx.fillStyle = '#3A3D42';
             ctx.beginPath();
             ctx.moveTo(padding + borderRadius, yPosition);
@@ -59,14 +58,12 @@ async function leaderboadCard({ songs }) {
             ctx.closePath();
             ctx.fill();
 
-            // Draw the song number
             ctx.fillStyle = 'white';
             ctx.font = "bold 40px 'ArialUnicodeMS'";
             ctx.textAlign = 'center';
             ctx.textBaseline = 'middle';
             ctx.fillText((batchIndex * maxSongs + i + 1).toString(), padding + 30, yPosition + 50);
 
-            // Draw the thumbnail with rounded corners
             const thumbnailImage = await loadImage(song.thumbnailURL);
             const thumbnailSize = 80;
             ctx.save();
@@ -85,28 +82,25 @@ async function leaderboadCard({ songs }) {
             ctx.drawImage(thumbnailImage, padding + 80, yPosition + 10, thumbnailSize, thumbnailSize);
             ctx.restore();
 
-            // Set text styles and draw the song title
             ctx.fillStyle = 'white';
             ctx.font = "bold 25px 'ArialUnicodeMS'";
             ctx.textAlign = 'left';
             ctx.textBaseline = 'top';
-            const truncatedTitle = truncateText(ctx, song.songTitle, 350); // Truncate song title
+            const truncatedTitle = truncateText(ctx, song.songTitle, 350);
             ctx.fillText(truncatedTitle, padding + 180, yPosition + 20);
 
-            // Draw the song artist
             ctx.fillStyle = '#A79D9D';
             ctx.font = "20px 'ArialUnicodeMS'";
-            const truncatedArtist = truncateText(ctx, song.songArtist, 350); // Truncate artist name
+            const truncatedArtist = truncateText(ctx, song.songArtist, 350);
             ctx.fillText(truncatedArtist, padding + 180, yPosition + 50);
 
-            // Draw the love icon
             const iconSize = 25;
             ctx.drawImage(loveIcon, cardWidth - padding - iconSize - 20, yPosition + (songHeight - iconSize) / 2, iconSize, iconSize);
         }
 
         ctx.fillStyle = 'white';
         ctx.font = "20px 'ArialUnicodeMS'";
-        ctx.fillText('shittybot.xyz', padding, cardHeight - 30);
+        ctx.fillText('shittybot.xyz | All Rights Reserved', padding, cardHeight - 30);
 
         return canvas.toBuffer('image/png');
     };
@@ -121,26 +115,4 @@ async function leaderboadCard({ songs }) {
     return buffers;
 }
 
-module.exports = { leaderboadCard };
-
-// // Example usage
-// (async () => {
-//     const songs = [
-//         { thumbnailURL: 'https://i.scdn.co/image/ab67616d00001e02684d81c9356531f2a456b1c1', songTitle: 'Song Title 1', songArtist: 'Artist 1' },
-//         { thumbnailURL: 'https://i.scdn.co/image/ab67616d00001e02684d81c9356531f2a456b1c1', songTitle: 'Song Title 2', songArtist: 'Artist 2' },
-//         { thumbnailURL: 'https://i.scdn.co/image/ab67616d00001e02684d81c9356531f2a456b1c1', songTitle: 'Song Title 3', songArtist: 'Artist 3' },
-//         { thumbnailURL: 'https://i.scdn.co/image/ab67616d00001e02684d81c9356531f2a456b1c1', songTitle: 'Song Title 4', songArtist: 'Artist 4' },
-//         { thumbnailURL: 'https://i.scdn.co/image/ab67616d00001e02684d81c9356531f2a456b1c1', songTitle: 'Song Title 5', songArtist: 'Artist 5' },
-//         { thumbnailURL: 'https://i.scdn.co/image/ab67616d00001e02684d81c9356531f2a456b1c1', songTitle: 'Song Title 6', songArtist: 'Artist 6' },
-//         { thumbnailURL: 'https://i.scdn.co/image/ab67616d00001e02684d81c9356531f2a456b1c1', songTitle: 'Song Title 7', songArtist: 'Artist 7' },
-//         { thumbnailURL: 'https://i.scdn.co/image/ab67616d00001e02684d81c9356531f2a456b1c1', songTitle: 'Song Title 8', songArtist: 'Artist 8' },
-//         { thumbnailURL: 'https://i.scdn.co/image/ab67616d00001e02684d81c9356531f2a456b1c1', songTitle: 'Song Title 9', songArtist: 'Artist 9' },
-//         { thumbnailURL: 'https://i.scdn.co/image/ab67616d00001e02684d81c9356531f2a456b1c1', songTitle: 'Song Title 10', songArtist: 'Artist 10' },
-//         { thumbnailURL: 'https://i.scdn.co/image/ab67616d00001e02684d81c9356531f2a456b1c1', songTitle: 'Song Title 11', songArtist: 'Artist 11' },
-//     ];
-
-//     const buffers = await generateCard({ songs });
-//     buffers.forEach((buffer, index) => {
-//         fs.writeFileSync(`output_${index + 1}.png`, buffer);
-//     });
-// })();
+module.exports = { playlistCard };

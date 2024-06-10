@@ -1,3 +1,3 @@
-const { leaderboadCard } = require("./card/leaderboardCard");
+const { playlistCard } = require("./card/playlistCard");
 
-module.exports = { leaderboadCard };
+module.exports = { playlistCard };
