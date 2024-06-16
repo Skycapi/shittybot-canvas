@@ -1,22 +1,33 @@
 {
   "name": "@shittybot/canvas",
-  "version": "1.0.0-alpha.0",
-  "description": "",
+  "version": "1.1.0",
+  "description": "A simple packae use in Shittybot to generate canvas image.",
   "main": "src/index.js",
   "scripts": {
-    "release": "standard-version && git push --follow-tags && npm publish"
+    "release": "git push --follow-tags && npm publish"
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/"
   },
-  "author": "",
+  "author": "LewdHuTao",
   "license": "ISC",
   "dependencies": {
     "@napi-rs/canvas": "^0.1.52",
     "fs": "^0.0.1-security",
     "path": "^0.12.7"
   },
-  "devDependencies": {
-    "standard-version": "^9.5.0"
-  }
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shittybot/shittybot-canvas.git"
+  },
+  "keywords": [
+    "canvas",
+    "discord",
+    "music-bot",
+    "image-process"
+  ],
+  "bugs": {
+    "url": "https://github.com/shittybot/shittybot-canvas/issues"
+  },
+  "homepage": "https://github.com/shittybot/shittybot-canvas#readme"
 }
