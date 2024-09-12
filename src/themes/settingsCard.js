@@ -76,7 +76,7 @@ async function settingsCard({
     statsY,
     fontPath
   );
-  drawStat(ctx, "Embed Color:", embedColor, statsX, statsY + lineSpacing);
+  drawStat(ctx, "Embed Color:", embedColor, statsX, statsY + lineSpacing, fontPath);
   drawStat(
     ctx,
     "24/7 Mode:",
