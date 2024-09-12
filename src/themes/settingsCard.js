@@ -11,6 +11,7 @@ async function settingsCard({
   bindChannel,
   trackAnnounce,
   dj,
+  twentyFourSeven,
   avatarUrl,
   outerColor = "#292b2f",
   innerColor = "#000000",
@@ -72,52 +73,65 @@ async function settingsCard({
     "Total sessions:",
     formatCount(totalSessions, "session"),
     statsX,
-    statsY
+    statsY,
+    fontPath
   );
   drawStat(ctx, "Embed Color:", embedColor, statsX, statsY + lineSpacing);
   drawStat(
     ctx,
     "24/7 Mode:",
-    autoplay ? "Enabled" : "Disabled",
+    twentyFourSeven ? "Enabled" : "Disabled",
     statsX,
-    statsY + lineSpacing * 2
+    statsY + lineSpacing * 2,
+    fontPath
   );
-  drawStat(ctx, "Volume:", `${volume}`, statsX, statsY + lineSpacing * 3);
+  drawStat(
+    ctx,
+    "Volume:",
+    `${volume}`,
+    statsX,
+    statsY + lineSpacing * 3,
+    fontPath
+  );
 
   drawStat(
     ctx,
     "Autoplay Mode:",
     autoplay ? "Enabled" : "Disabled",
     statsX + columnGap,
-    statsY
+    statsY,
+    fontPath
   );
   drawStat(
     ctx,
     "Bind Channel:",
     bindChannel ? "Enabled" : "Disabled",
     statsX + columnGap,
-    statsY + lineSpacing
+    statsY + lineSpacing,
+    fontPath
   );
   drawStat(
     ctx,
     "Track Announce:",
     trackAnnounce ? "Enabled" : "Disabled",
     statsX + columnGap,
-    statsY + lineSpacing * 2
+    statsY + lineSpacing * 2,
+    fontPath
   );
   drawStat(
     ctx,
     "DJ:",
     dj ? "Enabled" : "Disabled",
     statsX + columnGap,
-    statsY + lineSpacing * 3
+    statsY + lineSpacing * 3,
+    fontPath
   );
 
   const buffer = canvas.toBuffer("image/png");
   return buffer;
 }
 
-function drawStat(ctx, label, value, x, y) {
+function drawStat(ctx, label, value, x, y, fontPath) {
   ctx.font = fontPath ? "bold 14px 'CustomFont'" : "bold 14px Arial";
   ctx.fillStyle = "#ffffff";
   const labelWidth = ctx.measureText(label).width;
