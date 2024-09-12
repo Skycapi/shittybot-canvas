@@ -1,6 +1,6 @@
 {
   "name": "@shittybot/canvas",
-  "version": "1.1.5",
+  "version": "1.1.6",
   "description": "A simple packae use in Shittybot to generate canvas image.",
   "main": "src/index.js",
   "scripts": {
