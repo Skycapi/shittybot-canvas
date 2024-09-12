@@ -1,7 +1,8 @@
 const { createCanvas, loadImage, GlobalFonts } = require("@napi-rs/canvas");
+const { fontRegister } = require("../utils/fontRegister");
 const path = require("path");
 
-async function playlistCard({ songs }) {
+async function playlistCard({ songs, fontPath }) {
   const maxSongs = 5;
   const songHeight = 100;
   const padding = 20;
@@ -9,6 +10,10 @@ async function playlistCard({ songs }) {
   const backgroundColor = "#2B2D31";
   const borderRadius = 5;
   const loveIconURL = path.join(__dirname, "..", "assets", "gheart_icon.png");
+
+  if (fontPath) {
+    await fontRegister(fontPath, "CustomFont");
+  }
 
   const truncateText = (ctx, text, maxWidth) => {
     let width = ctx.measureText(text).width;
@@ -32,9 +37,6 @@ async function playlistCard({ songs }) {
       padding + songsBatch.length * (songHeight + padding) + padding + 50;
     const canvas = createCanvas(cardWidth, cardHeight);
     const ctx = canvas.getContext("2d");
-
-    const fontPath = path.join(__dirname, "..", "fonts", "ArialUnicodeMS.ttf");
-    GlobalFonts.registerFromPath(fontPath, "ArialUnicodeMS");
 
     ctx.fillStyle = backgroundColor;
     ctx.fillRect(0, 0, cardWidth, cardHeight);
@@ -80,7 +82,7 @@ async function playlistCard({ songs }) {
       ctx.fill();
 
       ctx.fillStyle = "white";
-      ctx.font = "bold 40px 'ArialUnicodeMS'";
+      ctx.font = fontPath ? "bold 40px 'CustomFont'" : "bold 40px Arial";
       ctx.textAlign = "center";
       ctx.textBaseline = "middle";
       ctx.fillText(
@@ -137,14 +139,14 @@ async function playlistCard({ songs }) {
       ctx.restore();
 
       ctx.fillStyle = "white";
-      ctx.font = "bold 25px 'ArialUnicodeMS'";
+      ctx.font = fontPath ? "bold 25px 'CustomFont'" : "bold 25px Arial";
       ctx.textAlign = "left";
       ctx.textBaseline = "top";
       const truncatedTitle = truncateText(ctx, song.songTitle, 350);
       ctx.fillText(truncatedTitle, padding + 180, yPosition + 20);
 
       ctx.fillStyle = "#A79D9D";
-      ctx.font = "20px 'ArialUnicodeMS'";
+      ctx.font = fontPath ? "20px 'CustomFont'" : "20px Arial";
       const truncatedArtist = truncateText(ctx, song.songArtist, 350);
       ctx.fillText(truncatedArtist, padding + 180, yPosition + 50);
 
@@ -159,7 +161,7 @@ async function playlistCard({ songs }) {
     }
 
     ctx.fillStyle = "white";
-    ctx.font = "20px 'ArialUnicodeMS'";
+    ctx.font = fontPath ? "20px 'CustomFont'" : "20px Arial";
     ctx.fillText(
       "shittybot.xyz | All Rights Reserved",
       padding,
