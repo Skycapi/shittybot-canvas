@@ -1,3 +1,4 @@
-const { playlistCard } = require("./card/playlistCard");
+const { playlistCard } = require("./themes/playlistCard");
+const { profileCard } = require("./themes/profileCard");
 
-module.exports = { playlistCard };
+module.exports = { playlistCard, profileCard };
