@@ -4,9 +4,7 @@ const { fontRegister } = require("../utils/fontRegister");
 async function profileCard({
   username,
   userId,
-  totalSessions,
-  todaySessions,
-  likedSongs,
+  blacklist,
   totalPlaylists,
   avatarUrl,
   outerColor,
@@ -61,10 +59,7 @@ async function profileCard({
   const columnGap = 270;
   const lineSpacing = 30;
 
-  drawStat(ctx, "Total sessions:", formatCount(totalSessions, "session"), statsX, statsY, fontPath);
-  drawStat(ctx, "Today sessions:", formatCount(todaySessions, "session"), statsX, statsY + lineSpacing, fontPath);
-
-  drawStat(ctx, "Liked songs:", formatCount(likedSongs, "song"), statsX + columnGap, statsY, fontPath);
+  drawStat(ctx, "BlackListed:", formatCount(blacklist, "blist"), statsX + columnGap, statsY, fontPath);
   drawStat(ctx, "Playlists:", formatCount(totalPlaylists, "playlist"), statsX + columnGap, statsY + lineSpacing, fontPath);
 
   const buffer = canvas.toBuffer("image/png");
