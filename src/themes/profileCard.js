@@ -59,7 +59,7 @@ async function profileCard({
   const columnGap = 270;
   const lineSpacing = 30;
 
-  drawStat(ctx, "BlackListed:", formatCount(blacklist || 5, ""), statsX + columnGap, statsY, fontPath);
+  drawStat(ctx, "BlackListed:", blacklist > 0 ? "Yes" : "No", statsX + columnGap, statsY, fontPath);
   drawStat(ctx, "Playlists:", formatCount(totalPlaylists, "playlist"), statsX + columnGap, statsY + lineSpacing, fontPath);
 
   const buffer = canvas.toBuffer("image/png");
@@ -79,6 +79,11 @@ function drawStat(ctx, label, value, x, y, fontPath) {
 }
 
 function formatCount(count, singular) {
+  // If count is a string (like 'Yes' or 'No'), return it directly
+  if (typeof count === 'string') {
+    return count;
+  }
+  // Otherwise, apply the original pluralization logic
   return `${count} ${count === 1 ? singular : singular + "s"}`;
 }
 
