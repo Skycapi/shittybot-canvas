@@ -59,8 +59,8 @@ async function profileCard({
   const columnGap = 270;
   const lineSpacing = 30;
 
-  drawStat(ctx, "BlackListed:", statsX + columnGap, statsY, fontPath);
-  drawStat(ctx, "Playlists:", formatCount(totalPlaylists, "playlist"), statsX + columnGap, statsY + lineSpacing, fontPath);
+  drawStat(ctx, "BlackListed:", statsX, statsY, fontPath);
+  drawStat(ctx, "Playlists:", formatCount(totalPlaylists, "playlist"), statsX + columnGap, statsY, fontPath);
 
   const buffer = canvas.toBuffer("image/png");
 
